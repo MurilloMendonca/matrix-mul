@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace matrix_mul.Models
 {
@@ -14,7 +9,7 @@ namespace matrix_mul.Models
     internal class MatrixRowResponse
     {
         [JsonPropertyName("row")]
-        public int[] Row { get; set; }
+        public required int[] Row { get; init; }
     }
 
     /// <summary>
@@ -23,7 +18,7 @@ namespace matrix_mul.Models
     internal class MatrixColumnResponse
     {
         [JsonPropertyName("column")]
-        public int[] Column { get; set; }
+        public required int[] Column { get; init; }
     }
 
     /// <summary>

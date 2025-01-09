@@ -1,9 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using matrix_mul.Models;
-using matrix_mul.Services;
 using matrix_mul.Services.MultiplicationStrategy;
 
 namespace matrix_mul.Services
@@ -43,7 +39,7 @@ namespace matrix_mul.Services
                 Console.WriteLine($"Initializing matrices of size {matrixSize}x{matrixSize}...");
                 Stopwatch stepStopwatch = Stopwatch.StartNew();
 
-                await _matrixService.InitMatrixes(matrixSize);
+                await _matrixService.InitMatrices(matrixSize);
 
                 stepStopwatch.Stop();
                 Console.WriteLine($"Matrix initialization completed in {stepStopwatch.Elapsed.TotalSeconds:F2} seconds.\n");

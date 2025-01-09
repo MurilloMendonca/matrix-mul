@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using matrix_mul.Models;
 
 
@@ -13,7 +9,7 @@ namespace matrix_mul.Services
     /// <summary>
     /// Identifies the matrix being accessed (A or B).
     /// </summary>
-    enum MatrixIdentifier
+    internal enum MatrixIdentifier
     {
         A,
         B
@@ -22,22 +18,17 @@ namespace matrix_mul.Services
     /// <summary>
     /// Service to get data from the matrices.
     /// </summary>
-    internal class MatrixService
+    internal class MatrixService(HttpClient httpClient, string baseUrl)
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _baseUrl;
+        private readonly HttpClient _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        private readonly string _baseUrl = baseUrl ?? throw new ArgumentNullException(nameof(baseUrl));
         private int _matrixSize;
-        public MatrixService(HttpClient httpClient, string baseUrl)
-        {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _baseUrl = baseUrl ?? throw new ArgumentNullException(nameof(baseUrl));
-        }
 
         /// <summary>
         /// Initializes the matrices by setting their size.
         /// </summary>
         /// <param name="matrixSize">The size of the square matrices.</param>
-        public async Task InitMatrixes(int matrixSize)
+        public async Task InitMatrices(int matrixSize)
         {
             if (matrixSize <= 0)
                 throw new ArgumentException("Matrix size must be greater than 0.", nameof(matrixSize));
@@ -77,7 +68,7 @@ namespace matrix_mul.Services
 
             var rowResponse = JsonSerializer.Deserialize<MatrixRowResponse>(response);
 
-            return rowResponse?.Row ?? Array.Empty<int>();
+            return rowResponse?.Row ?? [];
         }
 
         /// <summary>
@@ -96,7 +87,7 @@ namespace matrix_mul.Services
 
             // Deserialize the response into an object and extract the "column" property
             var colResponse = JsonSerializer.Deserialize<MatrixColumnResponse>(response);
-            return colResponse?.Column ?? Array.Empty<int>();
+            return colResponse?.Column ?? [];
         }
 
         /// <summary>
