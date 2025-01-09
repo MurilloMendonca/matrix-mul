@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "matrix-mul": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
